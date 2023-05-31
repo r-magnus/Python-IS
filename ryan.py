@@ -53,13 +53,21 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Creating Sprite")
   
 all_sprites_list = pygame.sprite.Group()
-  
-object_ = Sprite((240,128,128), 30, 30)
-object_.rect.x = 200
-object_.rect.y = 300
-  
+
+# SPRITE CREATION
+object_ = Sprite((240,128,128), 25, 12)
+object_.rect.x = 100
+object_.rect.y = 470
+
 all_sprites_list.add(object_)
-  
+
+cloud_ = Sprite((240,243,243), 30, 60)
+cloud_.rect.x = 300
+cloud_.rect.y = 200
+
+all_sprites_list.add(cloud_)
+
+# WINDOW CLOSING
 exit = True
 clock = pygame.time.Clock()
   
