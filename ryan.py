@@ -2,12 +2,13 @@
 import pygame
 import pickle
 from os import path
+import math
 #import time
 
 # Var Setup
 xvel = 0
 yvel = 0
-timevar = 0
+timevar = 1
 first = True
 
 """
@@ -98,19 +99,14 @@ while exit:
     pygame.display.flip()
     clock.tick(60)
     
-    #timevar += 1
-    xvel = 1/timevar+1
-    if timevar <= 50:
-        timevar += 1
-        yvel = -(1/timevar+1)*5
-    else:
-        if first:
-            fall = timevar
-            first = False
-        yvel = (timevar/fall+1)*5
+    timevar += 1
+    accel = 3
+
+    hypvel = math.sqrt(xvel*xvel + yvel*yvel)
+    timetofall = ((2*hypvel*math.sin(45))/accel)
 
     # Sprite Movement
     character_.moveX(xvel)
-    character_.moveY(yvel)
+    character_.moveY()
 
 pygame.quit()
