@@ -1,6 +1,15 @@
+# Libraries
 import pygame
 import pickle
 from os import path
+#import time
+
+# Var Setup
+xvel = 0
+yvel = 0
+timevar = 0
+first = True
+
 """
 def store(item,file):
   with open(file,"wb") as f:
@@ -44,6 +53,12 @@ class Sprite(pygame.sprite.Sprite):
   
         self.rect = self.image.get_rect()
 
+    # Movement
+    def moveX(self, pixels):
+        self.rect.x += pixels
+    def moveY(self, pixels):
+        self.rect.y += pixels
+
 pygame.init()
   
 RED = (255, 0, 0)
@@ -55,17 +70,18 @@ pygame.display.set_caption("Creating Sprite")
 all_sprites_list = pygame.sprite.Group()
 
 # SPRITE CREATION
-object_ = Sprite((240,128,128), 25, 12)
-object_.rect.x = 100
-object_.rect.y = 470
+character_ = Sprite((240,128,128), 30, 30)
+character_.rect.x = 100
+character_.rect.y = 400
 
-all_sprites_list.add(object_)
+all_sprites_list.add(character_)
 
 cloud_ = Sprite((240,243,243), 30, 60)
 cloud_.rect.x = 300
 cloud_.rect.y = 200
 
 all_sprites_list.add(cloud_)
+ 
 
 # WINDOW CLOSING
 exit = True
@@ -81,5 +97,20 @@ while exit:
     all_sprites_list.draw(screen)
     pygame.display.flip()
     clock.tick(60)
-  
+    
+    #timevar += 1
+    xvel = 1/timevar+1
+    if timevar <= 50:
+        timevar += 1
+        yvel = -(1/timevar+1)*5
+    else:
+        if first:
+            fall = timevar
+            first = False
+        yvel = (timevar/fall+1)*5
+
+    # Sprite Movement
+    character_.moveX(xvel)
+    character_.moveY(yvel)
+
 pygame.quit()
