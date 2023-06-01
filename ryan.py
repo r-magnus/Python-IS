@@ -1,4 +1,3 @@
-# Libraries
 import pygame
 import pickle
 from os import path
@@ -6,8 +5,8 @@ import math
 #import time
 
 # Var Setup
-xvel = 0
-yvel = 0
+yvel = 25
+xvel = yvel*(1/8)
 timevar = 1
 first = True
 
@@ -37,7 +36,7 @@ store(data, FILE)
 COLOR = (255, 100, 98)
 SURFACE_COLOR = (248, 242, 180)
 WIDTH = 1000
-HEIGHT = 500
+HEIGHT = 600
   
 # Object class
 class Sprite(pygame.sprite.Sprite):
@@ -77,13 +76,21 @@ character_.rect.y = 400
 
 all_sprites_list.add(character_)
 
-cloud_ = Sprite((240,243,243), 30, 60)
+cloud_ = Sprite((240,243,243), 80, 110)
 cloud_.rect.x = 300
 cloud_.rect.y = 200
 
 all_sprites_list.add(cloud_)
- 
 
+ground_ = Sprite((255,204,153), HEIGHT/3, WIDTH)
+ground_.rect.x = 0
+ground_.rect.y = HEIGHT/3 * 2
+
+all_sprites_list.add(ground_)
+ 
+random_image_ = pygame.image.load("MicrosoftTeams-image(3).png")
+
+all_sprites_list.add(random_image_)
 # WINDOW CLOSING
 exit = True
 clock = pygame.time.Clock()
@@ -99,14 +106,16 @@ while exit:
     pygame.display.flip()
     clock.tick(60)
     
-    timevar += 1
-    accel = 3
-
-    hypvel = math.sqrt(xvel*xvel + yvel*yvel)
-    timetofall = ((2*hypvel*math.sin(45))/accel)
 
     # Sprite Movement
-    character_.moveX(xvel)
-    character_.moveY()
+
+    #accel = 3
+    #hypvel = math.sqrt(xvel*xvel + yvel*yvel)
+    #timetofall = ((2*hypvel*math.sin(45))/accel)
+
+    yvel -= 1
+    xvel -= 1
+    character_.moveY(-yvel)
+    character_.moveX(-xvel)
 
 pygame.quit()

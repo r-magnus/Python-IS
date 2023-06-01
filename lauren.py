@@ -37,7 +37,7 @@ store(data, FILE)
 COLOR = (255, 100, 98)
 SURFACE_COLOR = (248, 242, 180)
 WIDTH = 1000
-HEIGHT = 500
+HEIGHT = 400
   
 # Object class
 class Sprite(pygame.sprite.Sprite):
@@ -77,11 +77,17 @@ character_.rect.y = 400
 
 all_sprites_list.add(character_)
 
-cloud_ = Sprite((240,243,243), 30, 60)
+cloud_ = Sprite((240,243,243), 80, 110)
 cloud_.rect.x = 300
 cloud_.rect.y = 200
 
 all_sprites_list.add(cloud_)
+
+ground_ = Sprite((255,204,153), HEIGHT/3, WIDTH)
+ground_.rect.x = 0
+ground_.rect.y = HEIGHT/3 * 2
+
+all_sprites_list.add(ground_)
  
 
 # WINDOW CLOSING
