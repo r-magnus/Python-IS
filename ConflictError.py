@@ -7,12 +7,10 @@ import math
 
 # Var Setup
 yvel = 25
-FALL_RATE = 1
+FALL = 1
 xvel = 10
 timevar = 1
 first = True
-squarechar = 30
-
 
 """
 def store(item,file):
@@ -40,7 +38,7 @@ store(data, FILE)
 COLOR = (255, 100, 98)
 SURFACE_COLOR = (248, 242, 180)
 WIDTH = 1000
-HEIGHT = 750
+HEIGHT = 500
   
 # Object class
 class Sprite(pygame.sprite.Sprite):
@@ -74,21 +72,17 @@ pygame.display.set_caption("Creating Sprite")
 all_sprites_list = pygame.sprite.Group()
 
 # SPRITE CREATION
-character_ = Sprite((240,128,128), squarechar, squarechar)
+character_ = Sprite((240,128,128), 30, 30)
 character_.rect.x = 100
 character_.rect.y = 400
 
-cloud_ = Sprite((240,243,243), 80, 110)
+all_sprites_list.add(character_)
+
+cloud_ = Sprite((240,243,243), 30, 60)
 cloud_.rect.x = 300
 cloud_.rect.y = 200
 
-ground_ = Sprite((255,204,153), HEIGHT/3, WIDTH) #fix scaling
-ground_.rect.x = 0
-ground_.rect.y = HEIGHT/3 * 2
-
-all_sprites_list.add(ground_)
 all_sprites_list.add(cloud_)
-all_sprites_list.add(character_)
 
 # WINDOW CLOSING
 exit = True
@@ -105,8 +99,8 @@ while exit:
     pygame.display.flip()
     clock.tick(60)
     
-     # Sprite Movement
-    yvel -= FALL_RATE
+    # Sprite Movement
+    yvel -= FALL
     character_.moveY(-yvel)
     character_.moveX(xvel)
 
@@ -119,12 +113,9 @@ while exit:
             #xvel -= 1
 
     # Sprite Position Check
-    charcenterX, charcenterY = character_.rect.center
-    floortopLeftX, floortopLeftY = ground_.rect.topleft
-
-    if charcenterY >= (HEIGHT/3 * 2) - 30:
-        #character_.moveY(floortopLeftY+squarechar)
-        yvel = FALL_RATE
+    centerX, centerY = character_.rect.center
+    if centerY >= 460:
+        yvel = FALL
         xvel = 0
     
     # Vector
