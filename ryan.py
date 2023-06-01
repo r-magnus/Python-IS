@@ -109,17 +109,17 @@ while exit:
 
     yvel -= FALL_RATE
     character_.moveY(-yvel)
-    character_.moveX(xvel)
+    #character_.moveX(xvel)
 
-    """
+    
     if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-              character_.moveX(1)
+              character_.moveX(10)
             elif event.key == pygame.K_LEFT:
-              character_.moveX(-1)
+              character_.moveX(-10)
             else:
               character_.moveX(0)
-    """
+    
 
     # Sprite Position Check
     charcenterX, charcenterY = character_.rect.center
