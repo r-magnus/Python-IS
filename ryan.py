@@ -88,9 +88,6 @@ ground_.rect.y = HEIGHT/3 * 2
 
 all_sprites_list.add(ground_)
  
-random_image_ = pygame.image.load("MicrosoftTeams-image(3).png")
-
-all_sprites_list.add(random_image_)
 # WINDOW CLOSING
 exit = True
 clock = pygame.time.Clock()
