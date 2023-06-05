@@ -15,7 +15,8 @@ timevar = 1
 first = True
 squarechar = 30
 
-"""
+
+# Serialization
 def store(item,file):
   with open(file,"wb") as f:
     pickle.dump(item,f)
@@ -33,9 +34,6 @@ if data is None:
 
 # Edit data here
 # https://replit.com/@RyanMagnus/Serialization#main.py
-
-store(data, FILE)
-"""
 
 # GLOBAL VARIABLES
 COLOR = (255, 100, 98)
@@ -65,7 +63,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.y += pixels
 
 # Text
-def text():
+def textdig():
     #pygame.init()
     #screen = pygame.display.set_mode((480, 360))
     text = ""
@@ -95,6 +93,38 @@ def text():
         rect.center = screen.get_rect().center
         screen.blit(block, rect)
         pygame.display.flip()
+
+def textalp():
+    #pygame.init()
+    #screen = pygame.display.set_mode((480, 360))
+    text = ""
+    COLOR = (252,199,134)
+    #screen.fill(COLOR)
+    font = pygame.font.Font(None, 50)
+    while True:
+        for evt in pygame.event.get():
+            if evt.type == KEYDOWN:
+                if evt.unicode.isalpha():
+                    text += evt.unicode
+                    screen.fill(COLOR)
+                elif evt.key == K_BACKSPACE:
+                    text = text[:-1]
+                    screen.fill(COLOR)
+                elif evt.key == K_RETURN:
+                    text = text
+                    screen.fill(COLOR)
+                    return text
+            elif evt.type == QUIT:
+                text = ""
+                return
+
+        #screen.fill((0, 0, 0))
+        block = font.render(text, True, (255, 255, 255))
+        rect = block.get_rect()
+        rect.center = screen.get_rect().center
+        screen.blit(block, rect)
+        pygame.display.flip()
+
 """
 def write(text):
   font = pygame.font.Font(None,50)
@@ -137,16 +167,16 @@ clock = pygame.time.Clock()
 # Text Input
 print("Y speed? ")
 #write("Y speed? ")
-yvel = text()
+yvel = textdig()
 while yvel > 25:
   print("\nToo big, try again!\nY speed? ")
-  yvel = text()
+  yvel = textdig()
 
 print("X speed? ")
-xvel = text()
+xvel = textdig()
 while xvel > 50:
   print("\nToo big, try again!\nX speed? ")
-  xvel = text()
+  xvel = textdig()
 xvel /= 3
 
 while exit:
@@ -166,17 +196,6 @@ while exit:
     character_.moveY(-yvel)
     character_.moveX(xvel)
 
-
-    """
-    if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-              character_.moveX(10)
-            elif event.key == pygame.K_LEFT:
-              character_.moveX(-10)
-            else:
-              character_.moveX(0)
-    """
-
     # Sprite Position Check
     charcenterX, charcenterY = character_.rect.center
     floortopLeftX, floortopLeftY = ground_.rect.topleft
@@ -185,6 +204,17 @@ while exit:
         #character_.moveY(-squarechar/2 + 15)
         yvel = FALL_RATE
         xvel = 0
-        print(charcenterX)
+        #print(charcenterX)
+        #input("Press Enter to continue. ")
+        print("Initials for score save? ")
+        name = textalp()
+        if name == "ZZZ":
+          data = {}
+        else:
+          data[name] = charcenterX
 
+        break
+
+print(data)
+store(data, FILE)
 pygame.quit()
