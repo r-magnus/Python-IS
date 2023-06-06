@@ -15,6 +15,7 @@ timevar = 1
 first = True
 squarechar = 30
 
+pygame.init()
 
 # Serialization
 def store(item,file):
@@ -31,9 +32,6 @@ FILE = "data.pkl"
 data = collect(FILE)
 if data is None:
   data = {}
-
-# Edit data here
-# https://replit.com/@RyanMagnus/Serialization#main.py
 
 # GLOBAL VARIABLES
 COLOR = (255, 100, 98)
@@ -63,13 +61,14 @@ class Sprite(pygame.sprite.Sprite):
         self.rect.y += pixels
 
 # Text
-def textdig():
+def textdig(caption):
     #pygame.init()
     #screen = pygame.display.set_mode((480, 360))
     text = ""
     COLOR = (252,199,134)
     screen.fill(COLOR)
     font = pygame.font.Font(None, 50)
+    textfont = pygame.font.Font(None,50)
     while True:
         for evt in pygame.event.get():
             if evt.type == KEYDOWN:
@@ -94,13 +93,21 @@ def textdig():
         screen.blit(block, rect)
         pygame.display.flip()
 
-def textalp():
+        #Caption
+        textblock = textfont.render(caption, True, (255,255,255))
+        textrect = textblock.get_rect()
+        textrect.center = (screen.get_rect().center[0],200)
+        screen.blit(textblock,textrect)
+        pygame.display.flip()
+
+def textalp(caption):
     #pygame.init()
     #screen = pygame.display.set_mode((480, 360))
     text = ""
     COLOR = (252,199,134)
     #screen.fill(COLOR)
     font = pygame.font.Font(None, 50)
+    textfont = pygame.font.Font(None,50)
     while True:
         for evt in pygame.event.get():
             if evt.type == KEYDOWN:
@@ -125,16 +132,25 @@ def textalp():
         screen.blit(block, rect)
         pygame.display.flip()
 
-"""
+        #Caption
+        textblock = textfont.render(caption, True, (255,255,255))
+        textrect = textblock.get_rect()
+        textrect.center = (screen.get_rect().center[0],125)
+        screen.blit(textblock,textrect)
+        pygame.display.flip()
+
 def write(text):
-  font = pygame.font.Font(None,50)
-  block = font.render(text,1,(255,255,255,))
-  screen.blit(block,(20,20))
-  pygame.display.update()
-"""
-pygame.init()
-  
-RED = (255, 0, 0)
+  textfont = pygame.font.Font(None,50)
+  while True:
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        return
+
+    textblock = textfont.render(text, True, (255,255,255))
+    textrect = textblock.get_rect()
+    textrect.center = (screen.get_rect().center[0],200)
+    screen.blit(textblock,textrect)
+    pygame.display.flip()
   
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -151,7 +167,6 @@ cloud_ = Sprite((240,243,243), 80, 110)
 cloud_.rect.x = 300
 cloud_.rect.y = 200
 
-
 ground_ = Sprite((252,199,134), HEIGHT/3, WIDTH) #fix scaling
 ground_.rect.x = 0
 ground_.rect.y = HEIGHT/3 * 2
@@ -165,18 +180,19 @@ exit = True
 clock = pygame.time.Clock()
 
 # Text Input
-print("Y speed? ")
-#write("Y speed? ")
-yvel = textdig()
-while yvel > 25:
-  print("\nToo big, try again!\nY speed? ")
-  yvel = textdig()
+#print("Y speed? ")
+#write("word")
 
-print("X speed? ")
-xvel = textdig()
+yvel = textdig("Y Velocity? (Max 25)")
+while yvel > 25:
+  #print("\nToo big, try again!\nY speed? ")
+  yvel = textdig("Too big! Y Velocity? (Max 25)")
+
+#print("X speed? ")
+xvel = textdig("X Velocity? (Max 50)")
 while xvel > 50:
-  print("\nToo big, try again!\nX speed? ")
-  xvel = textdig()
+  #print("\nToo big, try again!\nX speed? ")
+  xvel = textdig("Too big! X Velocity? (Max 50)")
 xvel /= 3
 
 while exit:
@@ -206,15 +222,20 @@ while exit:
         xvel = 0
         #print(charcenterX)
         #input("Press Enter to continue. ")
-        print("Initials for score save? ")
-        name = textalp()
-        if name == "ZZZ":
-          data = {}
-        else:
-          data[name] = charcenterX
+        #print("Initials for score save? ")
+        name = textalp("Initials?").upper()
+        while len(name) > 3:
+          name = textalp("Too long! Initials?").upper()
+        else: 
+          if name == "ZZZ":
+            data = {}
+          else:
+            data[name] = charcenterX
 
-        break
+          break
 
-print(data)
+#print(data)
+listdata = "Scores: " + str(data)
+write(listdata)
 store(data, FILE)
 pygame.quit()
