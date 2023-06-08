@@ -163,16 +163,21 @@ character_ = Sprite((240,128,128), squarechar, squarechar)
 character_.rect.x = 100
 character_.rect.y = HEIGHT/3 * 2 - squarechar - 1
 
-cloud_ = Sprite((240,243,243), 80, 110)
-cloud_.rect.x = 300
-cloud_.rect.y = 200
+cloud_1 = Sprite((240,243,243), 80, 110)
+cloud_1.rect.x = 235
+cloud_1.rect.y = 200
+
+cloud_2 = Sprite((240,243,243), 80, 110)
+cloud_2.rect.x = 675
+cloud_2.rect.y = 100
 
 ground_ = Sprite((252,199,134), HEIGHT/3, WIDTH) #fix scaling
 ground_.rect.x = 0
 ground_.rect.y = HEIGHT/3 * 2
 
 all_sprites_list.add(ground_)
-all_sprites_list.add(cloud_)
+all_sprites_list.add(cloud_1)
+all_sprites_list.add(cloud_2)
 all_sprites_list.add(character_)
 
 # WINDOW CLOSING
