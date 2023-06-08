@@ -217,7 +217,7 @@ while exit:
     floortopLeftX, floortopLeftY = ground_.rect.topleft
 
     if charcenterY >= (HEIGHT/3) * 2:
-        #character_.moveY(-squarechar/2 + 15)
+        #character_.moveY(-squarechar/2 + 15) #floor collision attempt
         yvel = FALL_RATE
         xvel = 0
         #print(charcenterX)
@@ -238,4 +238,5 @@ while exit:
 listdata = "Scores: " + str(data)
 write(listdata)
 store(data, FILE)
+
 pygame.quit()
