@@ -37,7 +37,9 @@ COLOR = (255, 100, 98)
 SURFACE_COLOR = (248, 242, 180)
 WIDTH = 1000
 HEIGHT = 600
-  
+
+input("testing testing 1 2 1 2")
+
 # Object class
 class Sprite(pygame.sprite.Sprite):
     def __init__(self, color, height, width):
